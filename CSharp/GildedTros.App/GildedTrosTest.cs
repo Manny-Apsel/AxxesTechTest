@@ -173,5 +173,39 @@ namespace GildedTros.App
 
             Assert.Equal(0, Items.First().Quality);
         }
+
+        /// <summary>
+        /// Smelly items decrease in quality twice as fast
+        /// </summary>
+        [Fact]
+        public void SmellyItemsDecrease()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Duplicate Code", SellIn = 5, Quality = 20 }};
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(18, Items.First().Quality);
+        }
+        
+        /// <summary>
+        /// Smelly items decrease in quality twice as fast
+        /// </summary>
+        [Fact]
+        public void SmellyItemsDecreaseAfterSellInValueReached()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Long Methods", SellIn = 0, Quality = 20 }};
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(16, Items.First().Quality);
+        }
     }
 }
+
+    /*
+     * 
+     *                 new Item { Name = "Long Methods", SellIn = 10, Quality = 20 },
+                new Item { Name = "Ugly Variable Names", SellIn = 20, Quality = 20 } };
+*/
