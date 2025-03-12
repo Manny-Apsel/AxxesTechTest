@@ -15,18 +15,20 @@ namespace GildedTros.App
         {
             foreach (var item in Items)
             {
+                item.SellIn -= 1;
+
                 if (IsLegendary(item))
                 {
                     item.Quality = 80;
-                    item.SellIn -= 1;
                     continue;
                 }
 
                 if (!IsQualityInAcceptableRange(item))
                 {
-                    item.SellIn -= 1;
                     continue;
                 }
+
+
             }
         }
 
