@@ -13,7 +13,17 @@ namespace GildedTros.App
 
         public void UpdateQuality()
         {
+            foreach (var item in Items)
+            {
+                if (IsLegendary(item))
+                {
+                    item.Quality = 80;
+                    item.SellIn -= 1;
+                    continue;
+                }
+            }
         }
 
+        private bool IsLegendary(Item item) => item.Name == "B-DAWG Keychain";
     }
 }
