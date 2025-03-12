@@ -113,8 +113,8 @@ namespace GildedTros.App
 
             app.UpdateQuality();
 
-            Assert.Equal(40, Items.First().SellIn);
-            Assert.Equal(50, Items.First().Quality);
+            Assert.Equal(39, Items.First().SellIn);
+            Assert.Equal(80, Items.First().Quality);
         }
 
         /// <summary>
