@@ -28,7 +28,7 @@ namespace GildedTros.App
             GildedTros app = new GildedTros(Items);
 
             app.UpdateQuality();
-            
+
             Assert.Equal(0, Items.First().Quality);
         }
 
@@ -42,8 +42,136 @@ namespace GildedTros.App
             GildedTros app = new GildedTros(Items);
 
             app.UpdateQuality();
-            
+
             Assert.Equal(0, Items.First().SellIn);
+        }
+
+        /// <summary>
+        /// Quality decreases twice as fast once sell date has passed
+        /// </summary>
+        [Fact]
+        public void DoubleQualityDecreaseAfterSellData()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 6 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(4, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Quality is never negative after one day
+        /// </summary>
+        [Fact]
+        public void Quality()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 2, Quality = 0 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(0, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Quality of "Good Wine" increases by 1 after one day
+        /// </summary>
+        [Fact]
+        public void QualityIncreaseGoodWine()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Good Wine", SellIn = 2, Quality = 5 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(6, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Quality never increases higher than 50
+        /// </summary>
+        [Fact]
+        public void QualityIncreaseStop()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Good Wine", SellIn = 2, Quality = 50 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(50, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// "B-DAWG Keychain", being a legendary item, never has to be sold or decreases in Quality
+        /// </summary>
+        [Fact]
+        public void KeychainHasNoChanges()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "B-DAWG Keychain", SellIn = 40, Quality = 50 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(40, Items.First().SellIn);
+            Assert.Equal(50, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Backstage passes quality increases by 1 when there are more than 10 days left
+        /// </summary>
+        [Fact]
+        public void BackstagePassesIncreaseInQualityByOne()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes for Re:factor", SellIn = 20, Quality = 20 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(21, Items.First().Quality);
+        }
+        
+        
+        /// <summary>
+        /// Backstage passes quality increases by 2 when there are 10 days or less
+        /// </summary>
+        [Fact]
+        public void BackstagePassesIncreaseInQualityByTwo()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes for Re:factor", SellIn = 10, Quality = 20 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(22, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Backstage passes quality increases by 3 when there are 5 days or less
+        /// </summary>
+        [Fact]
+        public void BackstagePassesIncreaseInQualityByThree()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes for Re:factor", SellIn = 5, Quality = 20 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(23, Items.First().Quality);
+        }
+
+        /// <summary>
+        /// Backstage passes quality drops to 0 after the concert
+        /// </summary>
+        [Fact]
+        public void BackstagePassesQualityDecreaseToNull()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes for Re:factor", SellIn = 0, Quality = 20 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(0, Items.First().Quality);
         }
     }
 }
