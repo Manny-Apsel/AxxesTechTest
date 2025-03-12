@@ -32,14 +32,38 @@ namespace GildedTros.App
                 {
                     item.Quality += 1;
                 }
-                
+
+                if (IsBackstagePass(item))
+                {
+                    if (item.SellIn < 0)
+                    {
+                        item.Quality = 0;
+                        continue;
+                    }
+
+                    if (item.SellIn < 5)
+                    {
+                        item.Quality += 3;
+                    }
+                    else if (item.SellIn < 10)
+                    {
+                        item.Quality += 2;
+                    }
+                    else
+                    {
+                        item.Quality += 1;
+                    }
+                    continue;
+                }
             }
         }
+
+        private bool IsBackstagePass(Item item) => item.Name.Contains("Backstage passes");
 
         private bool IsWine(Item item) => item.Name == "Good Wine";
 
         private bool IsQualityInAcceptableRange(Item item) => item.Quality > 0 && item.Quality < 50;
-        
+
         private bool IsLegendary(Item item) => item.Name == "B-DAWG Keychain";
     }
 }
