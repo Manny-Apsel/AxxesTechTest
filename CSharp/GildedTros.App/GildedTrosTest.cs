@@ -108,7 +108,7 @@ namespace GildedTros.App
         [Fact]
         public void KeychainHasNoChanges()
         {
-            IList<Item> Items = new List<Item> { new Item { Name = "B-DAWG Keychain", SellIn = 40, Quality = 50 } };
+            IList<Item> Items = new List<Item> { new Item { Name = "B-DAWG Keychain", SellIn = 40, Quality = 80 } };
             GildedTros app = new GildedTros(Items);
 
             app.UpdateQuality();
@@ -201,5 +201,6 @@ namespace GildedTros.App
 
             Assert.Equal(16, Items.First().Quality);
         }
+        
     }
 }
