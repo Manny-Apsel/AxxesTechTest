@@ -21,9 +21,17 @@ namespace GildedTros.App
                     item.SellIn -= 1;
                     continue;
                 }
+
+                if (!IsQualityInAcceptableRange(item))
+                {
+                    item.SellIn -= 1;
+                    continue;
+                }
             }
         }
 
+        private bool IsQualityInAcceptableRange(Item item) => item.Quality > 0 && item.Quality < 50;
+        
         private bool IsLegendary(Item item) => item.Name == "B-DAWG Keychain";
     }
 }
