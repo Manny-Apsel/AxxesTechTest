@@ -42,20 +42,26 @@ namespace GildedTros.App
                         continue;
                     }
 
-                    if (item.SellIn < 5)
-                    {
-                        item.Quality += 3;
-                    }
-                    else if (item.SellIn < 10)
-                    {
-                        item.Quality += 2;
-                    }
-                    else
-                    {
-                        item.Quality += 1;
-                    }
+                    item.Quality += EvaluateQualityChangeForBackStagePass(item.SellIn);
+
                     continue;
                 }
+            }
+        }
+
+        private int EvaluateQualityChangeForBackStagePass(int sellIn)
+        {
+            if (sellIn < 5)
+            {
+                return 3;
+            }
+            else if (sellIn < 10)
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
             }
         }
 
