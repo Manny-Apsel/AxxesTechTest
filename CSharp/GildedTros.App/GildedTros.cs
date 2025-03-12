@@ -31,6 +31,7 @@ namespace GildedTros.App
                 if (IsWine(item))
                 {
                     item.Quality += 1;
+                    continue;
                 }
 
                 if (IsBackstagePass(item))
