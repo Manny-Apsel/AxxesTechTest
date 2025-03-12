@@ -203,9 +203,3 @@ namespace GildedTros.App
         }
     }
 }
-
-    /*
-     * 
-     *                 new Item { Name = "Long Methods", SellIn = 10, Quality = 20 },
-                new Item { Name = "Ugly Variable Names", SellIn = 20, Quality = 20 } };
-*/
