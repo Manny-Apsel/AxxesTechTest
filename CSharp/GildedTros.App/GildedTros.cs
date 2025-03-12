@@ -28,9 +28,15 @@ namespace GildedTros.App
                     continue;
                 }
 
-
+                if (IsWine(item))
+                {
+                    item.Quality += 1;
+                }
+                
             }
         }
+
+        private bool IsWine(Item item) => item.Name == "Good Wine";
 
         private bool IsQualityInAcceptableRange(Item item) => item.Quality > 0 && item.Quality < 50;
         
