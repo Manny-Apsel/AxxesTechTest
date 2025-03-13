@@ -89,6 +89,20 @@ namespace GildedTros.App
         }
 
         /// <summary>
+        /// Quality of "Good Wine" increases by 1 after one day when quality starts at 0
+        /// </summary>
+        [Fact]
+        public void QualityIncreaseGoodWineStartQualityZero()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Good Wine", SellIn = 2, Quality = 0 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(6, Items.First().Quality);
+        }
+
+        /// <summary>
         /// Quality never increases higher than 50
         /// </summary>
         [Fact]
