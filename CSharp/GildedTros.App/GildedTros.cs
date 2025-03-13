@@ -44,25 +44,29 @@ namespace GildedTros.App
 
                 if (IsBackstagePass(item))
                 {
-                    if (item.SellIn < 0)
-                    {
-                        item.Quality = 0;
-                        continue;
-                    }
-
-                    var qualityIncrease = EvaluateQualityChangeForBackStagePass(item.SellIn);
-
-                    item.Quality += qualityIncrease;
-
-                    if (IsQualityAboveMaximum(item.Quality))
-                    {
-                        item.Quality = 50;
-                    }
-
+                    HandleQualityChangeBackStagePass(item);
                     continue;
                 }
 
                 DetermineQualityDecrease(item);
+            }
+        }
+
+        private void HandleQualityChangeBackStagePass(Item item)
+        {
+            if (item.SellIn < 0)
+            {
+                item.Quality = 0;
+                return;
+            }
+
+            var qualityIncrease = EvaluateQualityChangeForBackStagePass(item.SellIn);
+
+            item.Quality += qualityIncrease;
+
+            if (IsQualityAboveMaximum(item.Quality))
+            {
+                item.Quality = 50;
             }
         }
 
