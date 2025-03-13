@@ -26,7 +26,7 @@ namespace GildedTros.App
                     continue;
                 }
 
-                if (!IsQualityInAcceptableRange(item))
+                if (IsQualityAboveMaximum(item.Quality))
                 {
                     continue;
                 }
@@ -34,6 +34,11 @@ namespace GildedTros.App
                 if (IsWine(item))
                 {
                     item.Quality += 1;
+                    continue;
+                }
+
+                if (IsQualityUnderMinimum(item.Quality))
+                {
                     continue;
                 }
 
@@ -94,7 +99,8 @@ namespace GildedTros.App
 
         private bool IsWine(Item item) => item.Name == "Good Wine";
 
-        private bool IsQualityInAcceptableRange(Item item) => item.Quality > 0 && item.Quality < 50;
+        private bool IsQualityUnderMinimum(int quality) => quality <= 0;
+        private bool IsQualityAboveMaximum(int quality) => quality >= 50;
 
         private bool IsLegendary(Item item) => item.Name == "B-DAWG Keychain";
     }
