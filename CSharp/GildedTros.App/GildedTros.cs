@@ -47,22 +47,27 @@ namespace GildedTros.App
                     continue;
                 }
 
-                // determine quality decrease
-                switch ((IsSellInPositive(item.SellIn), IsItemSmelly(item.Name)))
-                {
-                    case (true, false):
-                        item.Quality -= 1;
-                        break;
-                    case (false, false):
-                    case (true, true):
-                        item.Quality -= 2;
-                        break;
-                    case (false, true):
-                        item.Quality -= 4;
-                        break;
-                }
+                DetermineQualityDecrease(item);
             }
         }
+
+        private void DetermineQualityDecrease(Item item)
+        {
+            switch ((IsSellInPositive(item.SellIn), IsItemSmelly(item.Name)))
+            {
+                case (true, false):
+                    item.Quality -= 1;
+                    break;
+                case (false, false):
+                case (true, true):
+                    item.Quality -= 2;
+                    break;
+                case (false, true):
+                    item.Quality -= 4;
+                    break;
+            }
+        }
+
         private bool IsItemSmelly(string name) => name == "Duplicate Code" || name == "Long Methods" || name == "Ugly Variable Names";
         private bool IsSellInPositive(int sellIn) => sellIn >= 0;
 
