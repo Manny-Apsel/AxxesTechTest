@@ -189,6 +189,20 @@ namespace GildedTros.App
         }
 
         /// <summary>
+        /// Backstage passes quality can't pass limit of 50
+        /// </summary>
+        [Fact]
+        public void BackstagePassesQualityIncreaseLimit()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes for Re:factor", SellIn = 4, Quality = 49 } };
+            GildedTros app = new GildedTros(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(50, Items.First().Quality);
+        }
+
+        /// <summary>
         /// Smelly items decrease in quality twice as fast
         /// </summary>
         [Fact]

@@ -50,7 +50,14 @@ namespace GildedTros.App
                         continue;
                     }
 
-                    item.Quality += EvaluateQualityChangeForBackStagePass(item.SellIn);
+                    var qualityIncrease = EvaluateQualityChangeForBackStagePass(item.SellIn);
+
+                    item.Quality += qualityIncrease;
+
+                    if (IsQualityAboveMaximum(item.Quality))
+                    {
+                        item.Quality = 50;
+                    }
 
                     continue;
                 }
