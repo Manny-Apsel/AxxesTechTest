@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GildedTros.App
 {
     public class GildedTros
     {
         IList<Item> Items;
+        string[] smellyItems;
         public GildedTros(IList<Item> Items)
         {
             this.Items = Items;
+            smellyItems = JsonLoader.LoadJsonArray("smellyItems.json");
         }
 
         public void UpdateQuality()
@@ -68,7 +71,7 @@ namespace GildedTros.App
             }
         }
 
-        private bool IsItemSmelly(string name) => name == "Duplicate Code" || name == "Long Methods" || name == "Ugly Variable Names";
+        private bool IsItemSmelly(string name) => smellyItems.Contains(name);
         private bool IsSellInPositive(int sellIn) => sellIn >= 0;
 
         private int EvaluateQualityChangeForBackStagePass(int sellIn)
