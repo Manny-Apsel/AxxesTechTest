@@ -99,7 +99,7 @@ namespace GildedTros.App
 
             app.UpdateQuality();
 
-            Assert.Equal(6, Items.First().Quality);
+            Assert.Equal(1, Items.First().Quality);
         }
 
         /// <summary>
