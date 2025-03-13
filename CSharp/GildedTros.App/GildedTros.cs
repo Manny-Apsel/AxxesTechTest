@@ -6,17 +6,17 @@ namespace GildedTros.App
 {
     public class GildedTros
     {
-        IList<Item> Items;
+        IList<Item> items;
         string[] smellyItems;
         public GildedTros(IList<Item> Items)
         {
-            this.Items = Items;
+            this.items = Items;
             smellyItems = JsonLoader.LoadJsonArray("smellyItems.json");
         }
 
         public void UpdateQuality()
         {
-            foreach (var item in Items)
+            foreach (var item in items)
             {
                 item.SellIn -= 1;
 
